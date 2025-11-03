@@ -1,12 +1,14 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
+import { prisma } from '@/lib/db';
 
-function Page() {
+const Page = async () => {
+  const post = await prisma.post.findMany();
+
   return (
     <div>
-      <Button></Button>
+      {JSON.stringify(post, null, 2)}
     </div>
-  )
+  );
 }
 
 export default Page
