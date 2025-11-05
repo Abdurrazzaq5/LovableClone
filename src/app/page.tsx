@@ -1,14 +1,10 @@
-import React from 'react';
-import { prisma } from '@/lib/db';
+'use client';
 
-const Page = async () => {
-  const post = await prisma.post.findMany();
+import { trpc } from '@/utils/trpc';
 
-  return (
-    <div>
-      {JSON.stringify(post, null, 2)}
-    </div>
-  );
+export default function MyComponent() {
+  const { data, isLoading } = trpc.createAI.useQuery({ text: 'World' });
+
+  if (isLoading) return <div>Loading...</div>;
+  return <div>{JSON.stringify(data?.greeting)}</div>;
 }
-
-export default Page
