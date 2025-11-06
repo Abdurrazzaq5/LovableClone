@@ -1,15 +1,25 @@
+import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
-import { baseProcedure, createTRPCRouter } from '../init';
-export const appRouter = createTRPCRouter({
-    createAI: baseProcedure
+
+export const t = initTRPC.create();
+export const appRouter = t.router({
+    // Create procedure at path 'login'
+    // The syntax is identical to creating queries
+    invoke: t.procedure
+        // using zod schema to validate and infer input values
         .input(
             z.object({
-                text: z.string(),
+                name: z.string(),
             }),
         )
-        .query((opts) => {
+        .mutation((opts) => {
+            // Here some login stuff would happen
             return {
-                greeting: `hello ${opts.input.text}`,
+                user: {
+                    name: opts.input.name,
+                    role: 'ADMIN',
+                },
+                ok: "success"
             };
         }),
 });
