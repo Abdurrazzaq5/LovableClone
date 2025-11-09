@@ -9,14 +9,14 @@ export const appRouter = t.router({
         // using zod schema to validate and infer input values
         .input(
             z.object({
-                name: z.string(),
+                value: z.string(),
             }),
         )
         .mutation((opts) => {
             // Here some login stuff would happen
             return {
                 user: {
-                    name: opts.input.name,
+                    name: opts.input.value,
                     role: 'ADMIN',
                 },
                 ok: "success"
